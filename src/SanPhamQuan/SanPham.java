@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class SanPham {
     private static int thuTuSP=0;
@@ -17,6 +18,10 @@ public class SanPham {
     {
         thuTuSP++;
         setMaSP(String.format("SP%05d",thuTuSP));
+    }
+
+    public SanPham() {
+
     }
 
     public SanPham(String ten, double giaBan, boolean tinhTrang, String ngayBan) throws ParseException {
@@ -90,7 +95,7 @@ public class SanPham {
         return String.format("------------Sản phầm--------------\n" +
                 "Mã sản phẩm  : %s\n" +
                 "Tên sản phẩm : %s\n" +
-                "Giá bán      : %,.2f (Dồng)\n" +
+                "Giá bán      : %,.2f (Đồng)\n" +
                 "Tình trạng   : %s\n" +
                 "Thời điểm bán: %s\n" +
                 "Ngày bán     : %s\n",
@@ -100,5 +105,54 @@ public class SanPham {
                 (isTinhTrang() ? "còn":"hết"),
                 getThoiDiemBan(),
                 getNgayBan());
+    }
+
+    public void nhap(Scanner scanner) {
+        System.out.print("Tên sản phẩm: ");
+        String ten=scanner.nextLine();
+        ten=ten.trim();
+        this.setTen(ten);
+
+        System.out.print("Giá bán: ");
+        double giaBan= scanner.nextDouble();
+        this.setGiaBan(giaBan);
+        scanner.nextLine();
+        String tinhTrang="";
+        while (!tinhTrang.contains("con") && !tinhTrang.contains("het") ) {
+            System.out.print("Tình trang (còn/hết) : ");
+            tinhTrang=scanner.nextLine();
+
+            tinhTrang=tinhTrang.toLowerCase().trim();
+            if (tinhTrang.contains("còn")) {
+                tinhTrang = "con";
+            }
+            if (tinhTrang.contains("hết")) {
+                tinhTrang = "het";
+            }
+            if (tinhTrang.contains("con") || tinhTrang.contains("het")) {
+                break;
+            }else {
+                System.out.println("NHẬP SAI!!!");
+            }
+        }
+        if (tinhTrang.contains("con") ){
+            this.setTinhTrang(true);
+        }
+        if (tinhTrang.contains("het")) {
+            this.setTinhTrang(false);
+        }
+
+        String ngayBan="";
+        while (ngayBan ==""){
+            try {
+                System.out.print("Ngày bán (hh:mm dd/mm/yyyy): ");
+                ngayBan=scanner.nextLine();
+                this.setNgayBan(ngayBan);
+            } catch (ParseException pe) {
+                System.out.println("\t\tNHẬP SAI ĐỊNH DẠNG NGÀY!!");
+                ngayBan="";
+            }
+        }
+
     }
 }
