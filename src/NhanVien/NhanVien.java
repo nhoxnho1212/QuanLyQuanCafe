@@ -7,8 +7,10 @@ import java.util.Scanner;
 public class NhanVien {
     static private int dem = 0;
     private int maNV;
-    {dem++;
-        setMaNV(dem);}
+    {
+        dem++;
+        setMaNV(dem);
+    }
     private String htNV;
     private String gTinh;
     private String queQuan;
@@ -17,7 +19,10 @@ public class NhanVien {
     private BoPhan boPhan;
     public NhanVien(){
     }
-    public String MaNhanVien(){ return String.format("%d",this.maNV); }
+    public String MaNhanVien(){
+        return String.format("%d",this.maNV);
+    }
+
     public NhanVien(String maNV ,String hT, String gT, String qQ, String nS
             , String nVL, BoPhan bP) throws ParseException{
         this.setHtNV(hT);
@@ -30,7 +35,6 @@ public class NhanVien {
         setMaNV(Integer.parseInt(maNV));
         dem=Integer.parseInt(maNV);
     }
-
 
     public void NhapNhanVien(Scanner scanner) throws ParseException{
         System.out.print("Nhập Tên Nhân Viên: ");
@@ -72,7 +76,6 @@ public class NhanVien {
         boPhan.nhapBoPhan(scanner);
     }
 
-
     @Override
     public String toString() {
         SimpleDateFormat f = new SimpleDateFormat("dd/mm/yyyy");
@@ -85,7 +88,6 @@ public class NhanVien {
                 ,f.format(getNgayVaoLam()), this.boPhan.MaBoPhan(), this.boPhan.getTenBoPhan());
         return m + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n";
     }
-
 
     public int getMaNV() {
         return maNV;

@@ -138,14 +138,6 @@ public class QuanLySanPham {
         return result;
     }
 
-    public static void clrscr() throws IOException,InterruptedException {
-        //Clears Screen in java
-        if (System.getProperty("os.name").contains("Windows"))
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        else
-            Runtime.getRuntime().exec("clear");
-    }
-
     public void nhap(Scanner scan){
         try {
             byte loai=-1;

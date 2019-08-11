@@ -6,8 +6,10 @@ public class BoPhan {
     private static int dem = 0;
     private String tenBoPhan;
     private int maBoPhan;
-    {dem++;
-    setMaBoPhan(dem);}
+    {
+        dem++;
+        setMaBoPhan(dem);
+    }
 
     public BoPhan(){};
     public BoPhan(int maBoPhan,String tenBoPhan) {

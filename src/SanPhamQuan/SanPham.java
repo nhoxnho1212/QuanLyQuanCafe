@@ -31,7 +31,6 @@ public class SanPham {
         setNgayBan(ngayBan);
     }
 
-
     public String getMaSP() {
         return maSP;
     }
