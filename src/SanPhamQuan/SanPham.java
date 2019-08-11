@@ -37,6 +37,7 @@ public class SanPham {
     }
 
     public void setMaSP(String maSP) {
+        thuTuSP=Integer.parseInt(getMaSP().substring(2));
         this.maSP = maSP;
     }
 

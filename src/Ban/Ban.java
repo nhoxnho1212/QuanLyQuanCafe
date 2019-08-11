@@ -1,27 +1,33 @@
 package Ban;
 
 public class Ban {
+    private static int dem = 0;
     private int maBan;
+    {dem++;maBan = dem;}
     private int sucChua;
     private boolean tinhTrang;
-    
     public Ban(int maBan, int sucChua, boolean tinhTrang){
         this.setMaBan(maBan);
         this.setSucChua(sucChua);
         this.setTinhTrang(tinhTrang);
     }
 
-    Ban() {
+    public Ban() {
     }
     /*Trả về mã bàn là môt chuỗi bắt đầu bằng B + mã bàn*/
-    protected String MaBan(){
-        return "Ma ban: B" + this.getMaBan();
+    public String MaBan(){
+        String s = Integer.toString(this.maBan);
+        if (s.matches("\\d{1}"))
+            s = "B00" + s;
+        else if (s.matches("\\d{2}"))
+            s = "B0" + s;
+        return s;
     }
     /*Convert suc chua thanh chuoi thuan tien cho viec chon ban*/
-    protected String SucChua(){return String.format("&f",this.sucChua);}
+    public String SucChua(){return String.format("&f",this.sucChua);}
     /*Trả về tình trạng của bàn dưới dạng chuỗi, nếu maBan = False thì trả về không trống, nếu maBan = True thì trả về
-    * trống */
-    protected String convertTinhTrang(){
+     * trống */
+    public String convertTinhTrang(){
         if(this.isTinhTrang() == true)
             return "Trống.";
         else

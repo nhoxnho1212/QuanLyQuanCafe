@@ -3,18 +3,25 @@ package NhanVien;
 import java.util.Scanner;
 
 public class BoPhan {
-    private int dem = 0;
+    private static int dem = 0;
     private String tenBoPhan;
     private int maBoPhan;
     {dem++;
     setMaBoPhan(dem);}
-    protected String MaBoPhan(){ return String.format("BP&d", this.getMaBoPhan()); }
-    public BoPhan nhapBoPhan(Scanner scanner) {
-        System.out.print("Nhập mã bộ phận: ");
+
+    public BoPhan(){};
+    public BoPhan(int maBoPhan,String tenBoPhan) {
+        this.tenBoPhan=tenBoPhan;
+        this.maBoPhan=maBoPhan;
+    }
+
+    public String MaBoPhan(){ return String.format("BP%d", this.getMaBoPhan()); }
+
+    public void nhapBoPhan(Scanner scanner) {
+        System.out.print("Nhập tên bộ phận: ");
         String tenBoPhan;
         tenBoPhan = scanner.nextLine();
         this.setTenBoPhan(tenBoPhan);
-        return this;
     }
     public String getTenBoPhan() {
         return tenBoPhan;

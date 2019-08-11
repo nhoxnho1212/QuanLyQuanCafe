@@ -3,8 +3,6 @@ package QuanLy;
 import SanPhamQuan.SanPham;
 import SanPhamQuan.ThucAn;
 import SanPhamQuan.ThucUong;
-import jdk.jshell.execution.LoaderDelegate;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
