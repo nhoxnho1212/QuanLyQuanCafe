@@ -13,6 +13,8 @@ import java.util.Scanner;
 public class GiaoDienQuanLyNhanVien {
     private static GiaoDienQuanLyNhanVien ourInstance = new GiaoDienQuanLyNhanVien();
     private static QuanLyNhanVien quanLyNhanVien= new QuanLyNhanVien();
+    private GiaoDienQuanLyNhanVien() { }
+
     public static GiaoDienQuanLyNhanVien getInstance()throws ClassNotFoundException,ParseException,SQLException {
         loadDataFormDatabase();
         byte chon=-1;
@@ -159,6 +161,5 @@ public class GiaoDienQuanLyNhanVien {
 
     }
 
-    private GiaoDienQuanLyNhanVien() {
-    }
+
 }

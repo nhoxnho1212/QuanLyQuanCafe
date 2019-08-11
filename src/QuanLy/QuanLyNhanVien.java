@@ -68,8 +68,9 @@ public class QuanLyNhanVien {
                         System.out.print("Nhập quê quán nhân viên: ");
                         s.nextLine();
                         String queQuan = s.nextLine();
-                        NhanVien a = new NhanVien(String.format("%d",nv.getMaNV()),nv.getHtNV(), nv.getgTinh(),queQuan,nv.getNgaySinh().toString(),
-                                nv.getNgayVaoLam().toString(),nv.getBoPhan());
+                        SimpleDateFormat f= new SimpleDateFormat("dd/MM/yyyy");
+                        NhanVien a = new NhanVien(String.format("%d",nv.getMaNV()),nv.getHtNV(), nv.getgTinh(),queQuan,f.format(nv.getNgaySinh()),
+                                f.format(nv.getNgayVaoLam()),nv.getBoPhan());
                         ds.set(ds.indexOf(nv),a);
 
                         //update
