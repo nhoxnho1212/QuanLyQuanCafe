@@ -1,13 +1,11 @@
 package GiaoDien;
+import NhanVien.NhanVien;
 import QuanLy.QuanLySanPham;
 import SQLServerDB.ConnectionUtils;
 import SanPhamQuan.ThucAn;
 import SanPhamQuan.ThucUong;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,11 +22,11 @@ public class GiaoDienQuanLySanPham{
         boolean isExit = false;
         while (!isExit) {
             chon = -1;
-            System.out.println("===========Menu: Quản lý nhân viên============\n" +
+            System.out.println("===========Menu: Quản lý Sản phẩm============\n" +
                     "\t1) Xem danh sách sản phẩm\n" +
                     "\t2) tìm kiếm sản phẩm\n" +
                     "\t3) thêm sản phẩm\n" +
-                    "\t4) sắp xếp theo khoảng giá\n" +
+                    "\t4) sắp xếp \n" +
                     "\t5) xóa sản phẩm\n" +
                     "\t6) trở về\n");
 
@@ -50,7 +48,39 @@ public class GiaoDienQuanLySanPham{
                     break;
                 }
                 case 2: {
+                    byte loai=-1;
+                    Scanner scanner= new Scanner(System.in);
+                    System.out.println("==================tìm kiếm sản phẩm==================");
+                    while (loai==-1) {
+                        System.out.println("Các loại sản phẩm:\n" +
+                                "\t1) tìm kiếm theo tên.\n" +
+                                "\t2) tìm kiếm theo khoảng giá. ");
+                        System.out.print("\t\tChọn : ");
+                        loai= scanner.nextByte();
+                        if (loai==1 || loai ==2) {
+                            break;
+                        }else {
+                            loai=-1;
+                            System.out.println("NHẬP SAI !!!");
+                        }
+                    }
+                    QuanLySanPham ketQuatimKiem=new QuanLySanPham();
+                        scanner.nextLine();
+                        if (loai==1) {
+                            System.out.print("Tên san phẩm: ");
+                            String ten= scanner.nextLine();
+                        ketQuatimKiem=quanLySanPham.timKiem(ten);
+                    }
+                    if (loai==2) {
+                        System.out.print("giá thấp nhất: ");
+                        double giaMin=scanner.nextDouble();
+                        System.out.print("giá thấp nhất: ");
+                        double giaMax=scanner.nextDouble();
+                        ketQuatimKiem=quanLySanPham.timKiem(giaMin,giaMax);
+                    }
 
+                    System.out.println("==Kết quả tìm kiếm==");
+                    System.out.println(ketQuatimKiem);
                     break;
                 }
                 case 3: {
@@ -59,9 +89,61 @@ public class GiaoDienQuanLySanPham{
                     break;
                 }
                 case 4: {
+                    byte loai=-1;
+                    Scanner scanner= new Scanner(System.in);
+                    System.out.println("==================Sắp xếp sản phẩm==================");
+                    while (loai==-1) {
+                        System.out.println("chọn kiểu sắp xếp:\n" +
+                                "\t1) tăng dần.\n" +
+                                "\t2) giảm dần. ");
+                        System.out.print("\t\tChọn : ");
+                        loai= scanner.nextByte();
+                        if (loai==1 || loai ==2) {
+                            break;
+                        }else {
+                            loai=-1;
+                            System.out.println("NHẬP SAI !!!");
+                        }
+                    }
+
+                    if (loai==1) {
+                        quanLySanPham.sapXep(true);
+                    }
+                    if (loai==2) {
+                        quanLySanPham.sapXep(false);
+                    }
+                    System.out.println("sắp xếp thành công!!!");
                     break;
                 }
                 case 5: {
+                    Scanner scanner= new Scanner(System.in);
+                    System.out.print("Tên sản phẩm: ");
+                    String ten= scanner.nextLine();
+                    QuanLySanPham ketQuaTimKiem=quanLySanPham.timKiem(ten);
+                    try {
+                        for (ThucAn thucAn : ketQuaTimKiem.getListThucAn()) {
+                            quanLySanPham.xoa(thucAn);
+
+                            //delete database
+                            Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
+                            String query="delete from ThucAn where CONVERT(VARCHAR,MaSanPham)='"+thucAn.getMaSP()+"'";
+                            PreparedStatement pstmt = connection.prepareStatement(query);
+                            pstmt.executeUpdate();
+
+                        }
+                        for (ThucUong thucUong: ketQuaTimKiem.getListThucUong()) {
+                            quanLySanPham.xoa(thucUong);
+
+                            //delete database
+                            Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
+                            String query="delete from ThucUong where CONVERT(VARCHAR,MaSanPham)='"+thucUong.getMaSP()+"'";
+                            PreparedStatement pstmt = connection.prepareStatement(query);
+                            pstmt.executeUpdate();
+
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
                     break;
                 }
                 case 6: {

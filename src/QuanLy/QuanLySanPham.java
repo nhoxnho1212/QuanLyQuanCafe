@@ -15,6 +15,13 @@ public class QuanLySanPham {
     private ArrayList<ThucAn> QuanLyThucAn;
     private ArrayList<ThucUong> QuanLyThucUong;
 
+    public ArrayList<ThucAn> getListThucAn(){
+        return this.QuanLyThucAn;
+    }
+    public ArrayList<ThucUong> getListThucUong(){
+        return this.QuanLyThucUong;
+    }
+
     public QuanLySanPham() {
         this.QuanLyThucAn = new ArrayList<ThucAn>();
         this.QuanLyThucUong = new ArrayList<ThucUong>();
@@ -46,6 +53,21 @@ public class QuanLySanPham {
 
     public void xoa(ThucAn thucAn) {
         this.QuanLyThucAn.remove(thucAn);
+
+        //delete row databasse
+        try {
+            Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
+            Statement statement = connection.createStatement();
+            SimpleDateFormat f= new SimpleDateFormat("hh:mm dd/MM/yyyy");
+
+            String query="INSERT into ThucAn (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,AnChay) " +
+                    "values ('"+thucAn.getMaSP()+"','"+thucAn.getTen()+"',"+thucAn.getGiaBan()+","+
+                    (thucAn.isTinhTrang()?1:0)+",'"+thucAn.getNgayBan()+"',"+(thucAn.isCoAnChay()?1:0)+")";
+            int result=statement.executeUpdate(query);
+            connection.close();
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public void xoa(ThucUong thucUong) {
@@ -148,15 +170,20 @@ public class QuanLySanPham {
                 them(thucAn);
 
                 //write databasse
-                Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
-                Statement statement = connection.createStatement();
-                SimpleDateFormat f= new SimpleDateFormat("hh:mm dd/MM/yyyy");
+                try {
+                    Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
+                    Statement statement = connection.createStatement();
+                    SimpleDateFormat f= new SimpleDateFormat("hh:mm dd/MM/yyyy");
 
-                String query="INSERT into ThucAn (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,AnChay) " +
-                        "values ('"+thucAn.getMaSP()+"','"+thucAn.getTen()+"',"+thucAn.getGiaBan()+","+
-                        (thucAn.isTinhTrang()?1:0)+",'"+thucAn.getNgayBan()+"',"+(thucAn.isCoAnChay()?1:0)+")";
-                int result=statement.executeUpdate(query);
-                connection.close();
+                    String query="INSERT into ThucAn (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,AnChay) " +
+                            "values ('"+thucAn.getMaSP()+"','"+thucAn.getTen()+"',"+thucAn.getGiaBan()+","+
+                            (thucAn.isTinhTrang()?1:0)+",'"+thucAn.getNgayBan()+"',"+(thucAn.isCoAnChay()?1:0)+")";
+                    int result=statement.executeUpdate(query);
+                    connection.close();
+                } catch (Exception e){
+                    System.out.println(e);
+                }
+
             }
             if (loai ==2) {
                 ThucUong thucUong = new ThucUong();
@@ -164,15 +191,19 @@ public class QuanLySanPham {
                 them(thucUong);
 
                 //write databasse
-                Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
-                Statement statement = connection.createStatement();
-                SimpleDateFormat f= new SimpleDateFormat("hh:mm dd/MM/yyyy");
+                try {
+                    Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
+                    Statement statement = connection.createStatement();
+                    SimpleDateFormat f= new SimpleDateFormat("hh:mm dd/MM/yyyy");
 
-                String query="INSERT into ThucUong (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,Da) " +
-                        "values ('"+thucUong.getMaSP()+"','"+thucUong.getTen()+"',"+thucUong.getGiaBan()+","+
-                        (thucUong.isTinhTrang()?1:0)+",'"+thucUong.getNgayBan()+"',"+(thucUong.isCoDa()?1:0)+")";
-                int result=statement.executeUpdate(query);
-                connection.close();
+                    String query="INSERT into ThucUong (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,Da) " +
+                            "values ('"+thucUong.getMaSP()+"','"+thucUong.getTen()+"',"+thucUong.getGiaBan()+","+
+                            (thucUong.isTinhTrang()?1:0)+",'"+thucUong.getNgayBan()+"',"+(thucUong.isCoDa()?1:0)+")";
+                    int result=statement.executeUpdate(query);
+                    connection.close();
+                } catch (Exception e){
+                    System.out.println(e);
+                }
             }
         } catch (Exception e) {
             System.out.println("NHẬP THẤT BẠI!!!");
