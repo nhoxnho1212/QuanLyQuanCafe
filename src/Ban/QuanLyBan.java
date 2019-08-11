@@ -3,43 +3,23 @@ package Ban;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class QuanLyBan {
     private ArrayList<Ban> ds = new ArrayList<>();
-    private void themBan1(Ban a){
+    public ArrayList<Ban> getDanhSachBan(){
+        return ds;
+    }
+    public void themBan(Ban a){
         this.ds.add(a);
     }
-    public void themBan(Scanner scanner) {
-        Ban kq = new Ban();
-        String s;
-        do {
-            System.out.print("Nhập mã bàn: ");
-            int maBan = scanner.nextInt();
-            s = Integer.toString(kq.getMaBan());
-            if(s.matches("\\D"))
-                System.out.print("Bạn phải nhập một số!");
-            kq.setMaBan(maBan);
-        } while(s.matches("\\D"));
-        do{
-            System.out.print("Nhập sức chứa: ");
-            int sucChua = scanner.nextInt();
-            s = Integer.toString(kq.getSucChua());
-            if(s.matches("\\D"))
-                System.out.print("Bạn phải nhập một số!");
-            kq.setSucChua(sucChua);
-        }while(s.matches("\\D"));
-        themBan1(kq);
-    }
-    public void capNhat(String maBan, String tinhTrang, String sucChua) {
+    public void capNhat(String maBan) {
         for (Ban a: this.ds) {
-            if(a.MaBan().toLowerCase().contains(maBan.toLowerCase()) ||
-                    a.convertTinhTrang().toLowerCase().contains("trống") ||
-                    a.convertTinhTrang().toLowerCase().contains("không trống") ||
-                    a.SucChua().contains(sucChua))
+            if(a.MaBan().toLowerCase().matches(maBan.toLowerCase()))
             {
                 System.out.print("Bạn muốn sửa thông tin nào: \n" +
                         "1.Sức chứa.\n" +
                         "2.Tình trạng.\n" +
-                        "Chọn 1 - 3: ");
+                        "Chọn 1 - 2: ");
                 int choose = 0;
                 Scanner s = new Scanner(System.in);
                 choose = s.nextInt();
@@ -47,6 +27,7 @@ public class QuanLyBan {
                     case 1: {
                         System.out.print("Nhập sức chứa: ");
                         int succhua = s.nextInt();
+                        String succhua1 = Integer.toString(succhua);
                         Ban b = new Ban(a.getMaBan(), succhua, a.isTinhTrang());
                         ds.set(ds.indexOf(a), b);
                         break;
@@ -80,8 +61,23 @@ public class QuanLyBan {
                     a.convertTinhTrang().toLowerCase().contains("trống") ||
                     a.convertTinhTrang().toLowerCase().contains("không trống") ||
                     a.SucChua().contains(sucChua))
-                kq.themBan1(a);
+                kq.themBan(a);
         }
        return kq;
+    }
+    public QuanLyBan DanhSachBanTrong() {
+        QuanLyBan kq = new QuanLyBan();
+        for(Ban b: this.ds)
+            if (b.isTinhTrang() == true)
+                kq.themBan(b);
+        return kq;
+    }
+
+    @Override
+    public String toString() {
+        String kq= "";
+        for(Ban b: this.ds)
+            kq+= b;
+        return kq;
     }
 }

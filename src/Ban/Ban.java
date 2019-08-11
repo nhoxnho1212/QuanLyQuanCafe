@@ -1,5 +1,7 @@
 package Ban;
 
+import java.util.Scanner;
+
 public class Ban {
     private static int dem = 0;
     private int maBan;
@@ -12,10 +14,10 @@ public class Ban {
         this.setTinhTrang(tinhTrang);
     }
 
-    Ban() {
+    public Ban() {
     }
     /*Trả về mã bàn là môt chuỗi bắt đầu bằng B + mã bàn*/
-    protected String MaBan(){
+    public String MaBan(){
         String s = Integer.toString(this.maBan);
         if (s.matches("\\d{1}"))
             s = "B00" + s;
@@ -24,10 +26,13 @@ public class Ban {
         return s;
     }
     /*Convert suc chua thanh chuoi thuan tien cho viec chon ban*/
-    protected String SucChua(){return String.format("&f",this.sucChua);}
+    public String SucChua(){
+        String kq = Integer.toString(this.getSucChua());
+        return kq;
+    }
     /*Trả về tình trạng của bàn dưới dạng chuỗi, nếu maBan = False thì trả về không trống, nếu maBan = True thì trả về
-    * trống */
-    protected String convertTinhTrang(){
+     * trống */
+    public String convertTinhTrang(){
         if(this.isTinhTrang() == true)
             return "Trống.";
         else
@@ -42,6 +47,17 @@ public class Ban {
                 , this.MaBan(),
                 this.getSucChua(),
                 this.convertTinhTrang());
+    }
+    public void nhapBan(Scanner scanner){
+        System.out.print("Nhập sức chứa của bàn: ");
+        this.setSucChua(scanner.nextInt());
+        scanner.nextLine();
+        System.out.print("Nhập tình trạng của bàn(trống hoặc không trống): ");
+        String tinhtrang = scanner.nextLine();
+        if(tinhtrang.toLowerCase().trim().matches("trống") || tinhtrang.toLowerCase().trim().matches("trong"))
+            this.setTinhTrang(true);
+        else if(tinhtrang.toLowerCase().trim().contains("không trống") || tinhtrang.toLowerCase().contains("khong trong"))
+            this.setTinhTrang(false);
     }
 
 
