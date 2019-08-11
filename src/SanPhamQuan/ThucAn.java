@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class ThucAn extends SanPham{
     private boolean CoAnChay;
     public ThucAn() {
+        super();
     }
     public ThucAn(String ten, double giaBan, boolean tinhTrang, String ngayBan, boolean coAnChay) throws ParseException {
         super(ten, giaBan, tinhTrang, ngayBan);

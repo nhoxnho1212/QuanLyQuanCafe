@@ -21,7 +21,7 @@ public class SanPham {
     }
 
     public SanPham() {
-
+        super();
     }
 
     public SanPham(String ten, double giaBan, boolean tinhTrang, String ngayBan) throws ParseException {
@@ -37,8 +37,8 @@ public class SanPham {
     }
 
     public void setMaSP(String maSP) {
-        thuTuSP=Integer.parseInt(getMaSP().substring(2));
         this.maSP = maSP;
+        thuTuSP=Integer.parseInt(getMaSP().substring(2));
     }
 
     public String getTen() {

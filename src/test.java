@@ -1,4 +1,5 @@
 import GiaoDien.GiaoDienQuanLyNhanVien;
+import GiaoDien.GiaoDienQuanLySanPham;
 import QuanLy.QuanLySanPham;
 import SanPhamQuan.SanPham;
 import SanPhamQuan.ThucAn;
@@ -58,7 +59,7 @@ public class test {
 //
 //        System.out.println(quanLy);
         try {
-            GiaoDienQuanLyNhanVien.getInstance();
+            GiaoDienQuanLySanPham.getInstance();
         }catch (Exception e) {
             System.out.println(e);
         }

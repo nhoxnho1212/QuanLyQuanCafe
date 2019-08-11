@@ -1,9 +1,13 @@
 package QuanLy;
 
+import SQLServerDB.ConnectionUtils;
 import SanPhamQuan.SanPham;
 import SanPhamQuan.ThucAn;
 import SanPhamQuan.ThucUong;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -142,14 +146,37 @@ public class QuanLySanPham {
                 ThucAn thucAn= new ThucAn();
                 thucAn.nhap(scan);
                 them(thucAn);
+
+                //write databasse
+                Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
+                Statement statement = connection.createStatement();
+                SimpleDateFormat f= new SimpleDateFormat("hh:mm dd/MM/yyyy");
+
+                String query="INSERT into ThucAn (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,AnChay) " +
+                        "values ('"+thucAn.getMaSP()+"','"+thucAn.getTen()+"',"+thucAn.getGiaBan()+","+
+                        (thucAn.isTinhTrang()?1:0)+",'"+thucAn.getNgayBan()+"',"+(thucAn.isCoAnChay()?1:0)+")";
+                int result=statement.executeUpdate(query);
+                connection.close();
             }
             if (loai ==2) {
                 ThucUong thucUong = new ThucUong();
                 thucUong.nhap(scan);
                 them(thucUong);
+
+                //write databasse
+                Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
+                Statement statement = connection.createStatement();
+                SimpleDateFormat f= new SimpleDateFormat("hh:mm dd/MM/yyyy");
+
+                String query="INSERT into ThucUong (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,Da) " +
+                        "values ('"+thucUong.getMaSP()+"','"+thucUong.getTen()+"',"+thucUong.getGiaBan()+","+
+                        (thucUong.isTinhTrang()?1:0)+",'"+thucUong.getNgayBan()+"',"+(thucUong.isCoDa()?1:0)+")";
+                int result=statement.executeUpdate(query);
+                connection.close();
             }
         } catch (Exception e) {
             System.out.println("NHẬP THẤT BẠI!!!");
+            System.out.println(e);
         }
 
     }

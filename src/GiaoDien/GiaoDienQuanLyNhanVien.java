@@ -111,6 +111,7 @@ public class GiaoDienQuanLyNhanVien {
                         String queryNhanVien="delete from NhanVien where MaNhanVien='"+nhanVien.MaNhanVien()+"'";
                         PreparedStatement pstmt = connection.prepareStatement(queryNhanVien);
                         pstmt.executeUpdate();
+
                         quanLyNhanVien.xoaNhanVien(nhanVien);
 
                     }
