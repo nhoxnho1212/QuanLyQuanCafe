@@ -51,7 +51,7 @@ public class QuanLyDatMon {
             return false;
         }
         tongTien+=(soLuong*monThem.getGiaBan());
-        //write databasse
+        //write database
         try {
             Connection connection= ConnectionUtils.getSQLServerConnection("QuanLyCafe");
             Statement statement = connection.createStatement();
@@ -59,7 +59,7 @@ public class QuanLyDatMon {
 
             String query="INSERT into ChiTietHoaDon (MaBan,MaSanPham,SoLuong,GiaBan,ThoiDiemBan) " +
                     "values ('"+maBan+"','"+monThem.getMaSP()+"',"+soLuong+","+
-                    monThem.getGiaBan()+",CONVERT(datetime,'"+f.format(f.parse(ngayBan))+"'))";
+                    monThem.getGiaBan()+",CONVERT(datetime,'"+f.format(f.parse(ngayBan))+"',131))";
             int result=statement.executeUpdate(query);
             connection.close();
 

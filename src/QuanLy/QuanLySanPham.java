@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class QuanLySanPham {
@@ -169,7 +170,7 @@ public class QuanLySanPham {
 
                     String query="INSERT into ThucAn (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,AnChay) " +
                             "values ('"+thucAn.getMaSP()+"','"+thucAn.getTen()+"',"+thucAn.getGiaBan()+","+
-                            (thucAn.isTinhTrang()?1:0)+",'"+thucAn.getNgayBan()+"',"+(thucAn.isCoAnChay()?1:0)+")";
+                            (thucAn.isTinhTrang()?1:0)+",CONVERT(datetime,'"+f.format(f.parse(thucAn.getNgayBan()))+"',131),"+(thucAn.isCoAnChay()?1:0)+")";
                     int result=statement.executeUpdate(query);
                     connection.close();
                 } catch (Exception e){
@@ -190,7 +191,7 @@ public class QuanLySanPham {
 
                     String query="INSERT into ThucUong (MaSanPham,TenSanPham,GiaBan,TinhTrang,NgayBan,Da) " +
                             "values ('"+thucUong.getMaSP()+"','"+thucUong.getTen()+"',"+thucUong.getGiaBan()+","+
-                            (thucUong.isTinhTrang()?1:0)+",'"+thucUong.getNgayBan()+"',"+(thucUong.isCoDa()?1:0)+")";
+                            (thucUong.isTinhTrang()?1:0)+",CONVERT(datetime,'"+f.format(f.parse(thucUong.getNgayBan()))+"',131),"+(thucUong.isCoDa()?1:0)+")";
                     int result=statement.executeUpdate(query);
                     connection.close();
                 } catch (Exception e){

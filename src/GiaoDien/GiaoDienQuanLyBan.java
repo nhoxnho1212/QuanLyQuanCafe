@@ -20,7 +20,7 @@ public class GiaoDienQuanLyBan {
         byte chon = -1;
         boolean isExit = false;
         while (!isExit) {
-            chon = -1;
+
             System.out.println("===========Menu: Quản lý bàn============\n" +
                     "\t1) Xem danh sách bàn\n" +
                     "\t2) tra cứu bàn\n" +
@@ -30,7 +30,7 @@ public class GiaoDienQuanLyBan {
                     "\t6} xem danh sách bàn trống\n" +
                     "\t7) đặt bàn\n" +
                     "\t8) trở về\n");
-
+            chon = -1;
             while (chon == -1) {
                 System.out.print("\t\t chọn:");
                 Scanner scanner = new Scanner(System.in);
